@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -50,11 +51,12 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
     @Composable
     private fun PrintMenu(navController: NavHostController) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Spacer(modifier = Modifier.height(45.dp))
+            Spacer(modifier = Modifier.height(14.dp))
             Row {
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
@@ -93,9 +95,10 @@ class MainActivity : ComponentActivity() {
                     contentDescription = stringResource(id = file),
                     modifier = Modifier.size(20.dp)
                 )
-                Text(text = " 최근 파일")
                 Spacer(modifier = Modifier.width(10.dp))
-                Button(onClick = { navController.navigate("RecentFile") }) {
+
+                OutlinedButton(
+                    onClick = { navController.navigate("RecentFile") }) {
                     Text("최근 파일")
                 }
             }
@@ -113,9 +116,8 @@ class MainActivity : ComponentActivity() {
                     contentDescription = stringResource(id = fileplus),
                     modifier = Modifier.size(20.dp)
                 )
-                Text(text = " 추가")
                 Spacer(modifier = Modifier.width(10.dp))
-                Button(onClick = { navController.navigate("NewFile") }) {
+                OutlinedButton(onClick = { navController.navigate("NewFile") }) {
                     Text("추가")
                 }
             }
@@ -193,7 +195,7 @@ class MainActivity : ComponentActivity() {
                 Text(text = "2024.5.30", style = TextStyle(color = Color.Gray, fontSize = 20.sp))
             }
             Spacer(modifier = Modifier.height(24.dp))
-            Button(onClick = { navController.navigate("MainScreen") }) {
+            OutlinedButton(onClick = { navController.navigate("MainScreen") }) {
                 Text("Back to MainScreen")
             }
         }
@@ -202,11 +204,31 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NewFileScreen(navController: NavHostController) {
     Column(modifier = Modifier.padding(16.dp)) {
-        Print_menu()
+
+        Spacer(modifier = Modifier.height(0.dp))
+        Row {
+            OutlinedButton(
+                onClick = { navController.navigate("MainScreen") },
+            ) {
+                Image(
+                        painter = painterResource(id = arrowleft),
+                contentDescription = stringResource(id = arrowleft),
+
+                )
+            }
+
+
+            Spacer(modifier = Modifier.width(62.dp))
+            Column {
+                Spacer(modifier = Modifier.height(14.dp))
+                Text(
+                    text = "Sunrin INT Product",
+                    fontFamily = FontFamily.SansSerif,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
         Input_title()
 
-        Button(onClick = { navController.navigate("MainScreen") }) {
-            Text("Back to MainScreen")
-        }
     }
 }
